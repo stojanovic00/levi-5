@@ -1,0 +1,15 @@
+{
+	"id": "0665a3d1-fd0c-411f-b680-053adbfca671",
+	"name": "Levi9Cloud",
+	"values": [
+		{
+			"key": "baseURL",
+			"value": "localhost:8080",
+			"type": "default",
+			"enabled": true
+		}
+	],
+	"_postman_variable_scope": "environment",
+	"_postman_exported_at": "2024-11-18T20:34:09.462Z",
+	"_postman_exported_using": "Postman/11.20.0"
+}

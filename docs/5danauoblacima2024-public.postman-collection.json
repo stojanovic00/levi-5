@@ -1,0 +1,1110 @@
+{
+	"info": {
+		"_postman_id": "f66345e6-439b-4c19-ba12-d90fe8801850",
+		"name": "5DanaUOblacima2024 Public",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "38299585",
+		"_collection_link": "https://conference-app.postman.co/workspace/Conference-app~81edd2a2-acb0-42ab-8837-071ed27e9add/collection/38299585-f66345e6-439b-4c19-ba12-d90fe8801850?action=share&source=collection_link&creator=38299585"
+	},
+	"item": [
+		{
+			"name": "Player",
+			"item": [
+				{
+					"name": "Positives",
+					"item": [
+						{
+							"name": "Create player 1",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"var jsonData = pm.response.json();",
+											"pm.environment.set(\"player1Id\", jsonData.id);"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"nickname\": \"Player1\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURL}}/players/create",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"players",
+										"create"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get player 1",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseURL}}/players/{{player1Id}}",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"players",
+										"{{player1Id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create player 2",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"var jsonData = pm.response.json();",
+											"pm.environment.set(\"player2Id\", jsonData.id);"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"nickname\": \"Player2\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURL}}/players/create",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"players",
+										"create"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get player 2",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseURL}}/players/{{player2Id}}",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"players",
+										"{{player2Id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create player 3",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"var jsonData = pm.response.json();",
+											"pm.environment.set(\"player3Id\", jsonData.id);"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"nickname\": \"Player3\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURL}}/players/create",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"players",
+										"create"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get player 3",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseURL}}/players/{{player3Id}}",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"players",
+										"{{player3Id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create player 4",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"var jsonData = pm.response.json();",
+											"pm.environment.set(\"player4Id\", jsonData.id);"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"nickname\": \"Player4\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURL}}/players/create",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"players",
+										"create"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get player 4",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseURL}}/players/{{player4Id}}",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"players",
+										"{{player4Id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create player 5",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"var jsonData = pm.response.json();",
+											"pm.environment.set(\"player5Id\", jsonData.id);"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"nickname\": \"Player5\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURL}}/players/create",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"players",
+										"create"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get player 5",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseURL}}/players/{{player5Id}}",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"players",
+										"{{player5Id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create player 6",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"var jsonData = pm.response.json();",
+											"pm.environment.set(\"player6Id\", jsonData.id);"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"nickname\": \"Player6\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURL}}/players/create",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"players",
+										"create"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get player 6",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseURL}}/players/{{player6Id}}",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"players",
+										"{{player6Id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create player 7",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"var jsonData = pm.response.json();",
+											"pm.environment.set(\"player7Id\", jsonData.id);"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"nickname\": \"Player7\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURL}}/players/create",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"players",
+										"create"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get player 7",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseURL}}/players/{{player7Id}}",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"players",
+										"{{player7Id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create player 8",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"var jsonData = pm.response.json();",
+											"pm.environment.set(\"player8Id\", jsonData.id);"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"nickname\": \"Player8\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURL}}/players/create",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"players",
+										"create"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get player 8",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseURL}}/players/{{player8Id}}",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"players",
+										"{{player8Id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create player 9",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"var jsonData = pm.response.json();",
+											"pm.environment.set(\"player9Id\", jsonData.id);"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"nickname\": \"Player9\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURL}}/players/create",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"players",
+										"create"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get player 9",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseURL}}/players/{{player9Id}}",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"players",
+										"{{player9Id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create player 10",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"var jsonData = pm.response.json();",
+											"pm.environment.set(\"player10Id\", jsonData.id);"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"nickname\": \"Player10\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURL}}/players/create",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"players",
+										"create"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get player 10",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseURL}}/players/{{player10Id}}",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"players",
+										"{{player10Id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "FindAll",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseURL}}/players",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"players"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Team",
+			"item": [
+				{
+					"name": "Positives",
+					"item": [
+						{
+							"name": "Create Team1",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"var jsonData = pm.response.json();",
+											"pm.environment.set(\"team1ID\", jsonData.id);"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"teamName\" : \"team1\",\n    \"players\" : [\n        \"{{player1Id}}\",\n        \"{{player2Id}}\",\n        \"{{player3Id}}\",\n        \"{{player4Id}}\",\n        \"{{player5Id}}\"\n    ]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURL}}/teams",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"teams"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Team1",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseURL}}/teams/{{team1ID}}",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"teams",
+										"{{team1ID}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create Team2",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"var jsonData = pm.response.json();",
+											"pm.environment.set(\"team2ID\", jsonData.id);"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"teamName\" : \"team2\",\n    \"players\" : [\n        \"{{player6Id}}\",\n        \"{{player7Id}}\",\n        \"{{player8Id}}\",\n        \"{{player9Id}}\",\n        \"{{player10Id}}\"\n    ]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURL}}/teams",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"teams"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Team2",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseURL}}/teams/{{team2ID}}",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"teams",
+										"{{team2ID}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Match",
+			"item": [
+				{
+					"name": "game1 t1-t2 -> 1",
+					"item": [
+						{
+							"name": "Record Match team1 win",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"team1Id\" : \"{{team1ID}}\",\n    \"team2Id\" : \"{{team2ID}}\",\n    \"winningTeamId\" : \"{{team1ID}}\",\n    \"duration\" : 60\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURL}}/matches",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"matches"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get player 1",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"var jsonData = pm.response.json();",
+											"pm.test(\"Check result counts\", function () {",
+											"    pm.expect(jsonData.elo).to.be.equal(25);",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseURL}}/players/{{player1Id}}",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"players",
+										"{{player1Id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get player 6",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"var jsonData = pm.response.json();",
+											"pm.test(\"Check result counts\", function () {",
+											"    pm.expect(jsonData.elo).to.be.equal(-25);",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseURL}}/players/{{player6Id}}",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"players",
+										"{{player6Id}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		}
+	]
+}
