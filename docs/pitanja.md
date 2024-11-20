@@ -1,4 +1,0 @@
-- "igrac moze da bude u samo jednom timu, ne moze da menja timove"
-  - Da li to konkretno znaci da kada mu je prvi put dodeljen teamId, on ne moze vise da se menja
-- Da li se mecevi takodje cuvaju ili /matches endpoint sluzi samo za update ELO-a, bez cuvanja informacija o mecevima
-- Da li se K (ratingAdjustment) koje se koristi za racunanje Rnew, odredjuje na osnovu broja sati koje je igrac imao do tog meca ili se koriste i pridodati sati u tom mecu

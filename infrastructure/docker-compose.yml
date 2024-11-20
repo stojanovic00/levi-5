@@ -6,3 +6,15 @@ services:
     container_name: redis-db
     ports:
       - "6379:6379"
+
+  app:
+    build:
+      context: ../app
+      dockerfile: Dockerfile
+    container_name: python-app
+    ports:
+      - "8080:8080"
+    depends_on:
+      - redis
+    env_file:
+      - ../app/.env
