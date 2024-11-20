@@ -1,12 +1,12 @@
 class Player:
     def __init__(self, id, nickname, wins=0, losses=0, elo=0, hoursPlayed=0, teamId=None, ratingAdjustment=None):
-        self.id = id
-        self.nickname = nickname
-        self.wins = wins
-        self.losses = losses
+        self.id: str = id
+        self.nickname: str = nickname
+        self.wins: int = wins
+        self.losses: int = losses
         self.elo = elo
-        self.hoursPlayed = hoursPlayed
-        self.teamId = teamId
+        self.hoursPlayed:int = hoursPlayed
+        self.teamId: str = teamId
         self.ratingAdjustment = ratingAdjustment
 
     @classmethod
@@ -19,4 +19,17 @@ class Player:
             elo=data.get('elo', 0),
             hoursPlayed=data.get('hoursPlayed', 0),
             teamId=data.get('teamId'),
-            ratingAdjustment=data.get('ratingAdjustment'))
+            ratingAdjustment=data.get('ratingAdjustment')
+        )
+
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'nickname': self.nickname,
+            'wins': self.wins,
+            'losses': self.losses,
+            'elo': self.elo,
+            'hoursPlayed': self.hoursPlayed,
+            'teamId': self.teamId,
+            'ratingAdjustment': self.ratingAdjustment
+        }

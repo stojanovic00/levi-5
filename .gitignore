@@ -1,0 +1,4 @@
+.vscode
+
+app/model/__pycache__/*
+app/service/__pycache__/*

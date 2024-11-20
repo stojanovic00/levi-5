@@ -1,3 +1,4 @@
+from typing import List
 import redis
 import uuid
 import json
@@ -43,13 +44,12 @@ class PlayerService:
             return Player.from_dict(player_dict)
         return None
     
-    def get_all_players(self):
+    def get_all_players(self) -> List[Player]:
         players = []
         for key in self.redis_client.smembers(players_set):
-            player_data = self.redis_client.get(key)
-            if player_data:
-                player_dict = json.loads(player_data)
-                players.append(Player.from_dict(player_dict))
+            player = self.get_player(key)
+            if player:
+                players.append(player)
         return players
 
     def update_player(self, updated_player: Player):
@@ -59,7 +59,7 @@ class PlayerService:
             return None  # Player does not exist
 
         # Save the updated player to Redis
-        self.redis_client.set(updated_player.id, json.dumps(updated_player.__dict__))
+        self.redis_client.set(updated_player.id, json.dumps(updated_player.to_dict()))
         # TODO Check if this is needed
         self.redis_client.sadd(players_set, updated_player.id)
 
