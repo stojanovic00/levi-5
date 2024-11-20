@@ -1,24 +1,15 @@
-import redis
-import json
-import os
-import uuid
 from dotenv import load_dotenv
 from typing import Optional, Tuple
 from .team_service import TeamService
 from .player_service import PlayerService
+from .errors import Error, ErrorType
 
-# Load environment variables from .env file
-# TODO maybe delete
-load_dotenv()
 
-team_service = TeamService()
-player_service = PlayerService()
 
 class MatchService:
     def __init__(self):
-        redis_host = os.getenv('REDIS_HOST', 'localhost')
-        redis_port = int(os.getenv('REDIS_PORT', 6379))
-        self.redis_client = redis.Redis(host=redis_host, port=redis_port)
+        self.team_service = TeamService()
+        self.player_service = PlayerService()
 
     def get_estimated_elo(self, current_elo: float, opponent_team_mean_elo: float) -> float:
            return 1 / (1 + 10 ** ((opponent_team_mean_elo - current_elo) / 400)) 
@@ -41,21 +32,21 @@ class MatchService:
     def record_match(self, team1Id: str, team2Id: str, winningTeamId: str | None, duration: int):
 
         if duration < 1:
-            return False
+            raise Error(ErrorType.MATCH_DURATION_LESS_THAN_ONE, "Duration can't be less than 1 hour")
 
 
-        team1 = team_service.get_team(team1Id)
-        team2 = team_service.get_team(team2Id)
+        team1 = self.team_service.get_team(team1Id)
+        team2 = self.team_service.get_team(team2Id)
 
-        team1_mean_elo = team_service.calculate_mean_elo(team1)
-        team2_mean_elo = team_service.calculate_mean_elo(team2)
+        if team1 is None:
+            raise Error(ErrorType.TEAM_NOT_FOUND, "Team 1 not found")
+        if team2 is None:
+            raise Error(ErrorType.TEAM_NOT_FOUND, "Team 2 not found")
 
-        if team1 is None or team2 is None:
-            return False
+        team1_mean_elo = self.team_service.calculate_mean_elo(team1)
+        team2_mean_elo = self.team_service.calculate_mean_elo(team2)
+
             
-        # Updaing the players stats
-        # check when K is calulcated before or after adding hours
-
         for player in team1.players:
             # ELO
             estimated_elo = self.get_estimated_elo(player.elo, team2_mean_elo)
@@ -74,7 +65,7 @@ class MatchService:
             else:
                 player.elo = self.get_new_elo(player.elo, estimated_elo, player.ratingAdjustment, 0.5)
 
-            player_service.update_player(player)
+            self.player_service.update_player(player)
 
         for player in team2.players:
             # ELO
@@ -94,10 +85,10 @@ class MatchService:
             else:
                 player.elo = self.get_new_elo(player.elo, estimated_elo, player.ratingAdjustment, 0.5)
 
-            player_service.update_player(player)
+            self.player_service.update_player(player)
         
 
-        team_service.update_team(team1)
-        team_service.update_team(team2)
+        self.team_service.update_team(team1)
+        self.team_service.update_team(team2)
 
-        return True
+        return
