@@ -2,3 +2,4 @@
 
 app/model/__pycache__/*
 app/service/__pycache__/*
+app/repository/__pycache__/*

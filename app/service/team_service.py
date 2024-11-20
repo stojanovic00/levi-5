@@ -1,25 +1,17 @@
-import redis
-import json
-import os
 import uuid
 
 from typing import List, Optional
 from dotenv import load_dotenv
 
+from model.team import Team
+from repository.team_repository import TeamRepository
 from .player_service import PlayerService, Player
 from .errors import Error, ErrorType
-from model.team import Team
-
-teams_set = "teams"
-# Load environment variables from .env file
-load_dotenv()
 
 class TeamService:
     def __init__(self):
-        redis_host = os.getenv('REDIS_HOST', 'localhost')
-        redis_port = int(os.getenv('REDIS_PORT', 6379))
-        self.redis_client = redis.Redis(host=redis_host, port=redis_port)
         self.player_service = PlayerService()
+        self.team_repository = TeamRepository()
 
     def create_team(self, teamName, player_ids) -> Team:
         # Validations
@@ -53,41 +45,23 @@ class TeamService:
             players=players
         )
 
-        # Save the team to Redis
-        self.redis_client.set(new_team.id, json.dumps(new_team.to_dict()))
-        self.redis_client.sadd(teams_set, new_team.id)
-
+        self.team_repository.save_team(new_team)
         return new_team
 
     def get_team(self, team_id) -> Optional[Team]:
-        team_data = self.redis_client.get(team_id)
-        if team_data:
-            team_dict = json.loads(team_data)
-            return Team.from_dict(team_dict)
+        team = self.team_repository.get_team(team_id)
+        if team:
+            return team
         raise Error(ErrorType.TEAM_NOT_FOUND, "team with ID '{team_id}' not found".format(team_id=team_id))
 
     def get_all_teams(self) -> List[Team]:
-            teams = []
-            for key in self.redis_client.smembers(teams_set):
-                team = self.get_team(key)
-                if team:
-                    teams.append(team)
-            return teams
+        return self.team_repository.get_all_teams()
     
-    def calculate_mean_elo(self, team: Team) -> float:
-        total_elo = 0
-        for player in team.players:
-            total_elo += player.elo
-        return total_elo / 5
 
     def update_team(self, updated_team: Team):
-        exists = self.get_team(updated_team.id)
+        exists = self.team_repository.get_team(updated_team.id)
         if not exists:
             raise Error(ErrorType.TEAM_NOT_FOUND, "team with ID '{team_id}' not found".format(team_id=updated_team.id))
 
-        # Save the updated team to Redis
-        self.redis_client.set(updated_team.id, json.dumps(updated_team.to_dict()))
-        # TODO Check if this is needed
-        self.redis_client.sadd(teams_set, updated_team.id)
-
+        self.team_repository.save_team(updated_team)
         return 

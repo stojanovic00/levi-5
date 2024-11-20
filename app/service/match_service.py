@@ -1,5 +1,7 @@
 from dotenv import load_dotenv
 from typing import Optional, Tuple
+
+from model.team import Team
 from .team_service import TeamService
 from .player_service import PlayerService
 from .errors import Error, ErrorType
@@ -10,6 +12,12 @@ class MatchService:
     def __init__(self):
         self.team_service = TeamService()
         self.player_service = PlayerService()
+
+    def calculate_mean_team_elo(self, team: Team) -> float:
+        total_elo = 0
+        for player in team.players:
+            total_elo += player.elo
+        return total_elo / 5
 
     def get_estimated_elo(self, current_elo: float, opponent_team_mean_elo: float) -> float:
            return 1 / (1 + 10 ** ((opponent_team_mean_elo - current_elo) / 400)) 
@@ -43,8 +51,8 @@ class MatchService:
         if team2 is None:
             raise Error(ErrorType.TEAM_NOT_FOUND, "Team 2 not found")
 
-        team1_mean_elo = self.team_service.calculate_mean_elo(team1)
-        team2_mean_elo = self.team_service.calculate_mean_elo(team2)
+        team1_mean_elo = self.calculate_mean_team_elo(team1)
+        team2_mean_elo = self.calculate_mean_team_elo(team2)
 
             
         for player in team1.players:
