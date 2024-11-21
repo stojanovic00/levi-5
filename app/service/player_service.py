@@ -38,7 +38,7 @@ class PlayerService:
         player = self.player_repository.get_player(player_id)
         if player:
             return player
-        raise Error(ErrorType.PLAYER_NOT_FOUND, f"player with ID {player_id} not found")
+        raise Error(ErrorType.PLAYER_NOT_FOUND, f"player with ID '{player_id}' not found")
     
     def get_all_players(self) -> List[Player]:
         return self.player_repository.get_all_players()

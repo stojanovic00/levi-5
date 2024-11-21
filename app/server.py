@@ -95,5 +95,22 @@ def record_match():
         else:
             return jsonify({'message': "Unknown error"}), 520
 
+@app.route('/matches/<match_id>', methods=['GET'])
+def get_match(match_id):
+
+    try:
+        match = match_service.get_match(match_id)
+        return jsonify(match.to_dict()), 200
+    except Error as e:
+        if e.error_type == ErrorType.MATCH_NOT_FOUND:
+            return jsonify({'message': e.message}), 404
+        else:
+            return jsonify({'message': "Unknown error"}), 520
+
+@app.route('/matches', methods=['GET'])
+def get_all_matches():
+    matches = match_service.get_all_matches()
+    return jsonify([match.to_dict() for match in matches]), 200
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8080, debug=False)

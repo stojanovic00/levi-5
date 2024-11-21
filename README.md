@@ -18,6 +18,9 @@ To build and run this application, you need the following dependencies:
 - Building and running application is done by running `./start.sh`
 - Stopping the application is done by running `./stop.sh`
 
+- These scripts suppose you have the right permissions to run them, if not you can run `chmod +x start.sh stop.sh` to give them the right permissions
+- If you are using `docker compose` instead of `docker-compose` you can change the `docker-compose` command in the `start.sh` and `stop.sh` scripts to `docker compose`
+
 ## Technologies Used
 
 - **Flask**: A lightweight WSGI web application framework in Python. It is designed with simplicity and flexibility in mind, making it easy to build web applications quickly.

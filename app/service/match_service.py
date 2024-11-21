@@ -1,9 +1,12 @@
+import uuid
 from dotenv import load_dotenv
-from typing import Optional, Tuple
+from typing import List, Optional, Tuple
 
 from model.team import Team
+from model.match import Match
 from .team_service import TeamService
 from .player_service import PlayerService
+from repository.match_repository import MatchRepository
 from .errors import Error, ErrorType
 
 
@@ -12,6 +15,7 @@ class MatchService:
     def __init__(self):
         self.team_service = TeamService()
         self.player_service = PlayerService()
+        self.match_repository = MatchRepository()
 
     def calculate_mean_team_elo(self, team: Team) -> float:
         total_elo = 0
@@ -99,4 +103,16 @@ class MatchService:
         self.team_service.update_team(team1)
         self.team_service.update_team(team2)
 
+        # Save match to database
+        self.match_repository.save_match(Match(str(uuid.uuid4()), team1Id, team2Id, winningTeamId, duration))
+        
         return
+
+    def get_match(self, match_id):
+        match = self.match_repository.get_match(match_id)
+        if match:
+            return match
+        raise Error(ErrorType.MATCH_NOT_FOUND, f"match with ID '{match_id}' not found")
+
+    def get_all_matches(self) -> List[Match]:
+        return self.match_repository.get_all_matches()

@@ -13,6 +13,7 @@ class ErrorType(Enum):
 
     # MATCH
     MATCH_DURATION_LESS_THAN_ONE = "MATCH_DURATION_LESS_THAN_ONE"
+    MATCH_NOT_FOUND = "MATCH_NOT_FOUND"
 
 class Error(Exception):
     def __init__(self, error_type: ErrorType, message: str):

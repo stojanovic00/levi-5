@@ -1,5 +1,8 @@
 #!/bin/bash
 
-# Run Docker Compose to start the services in detached mode and build the images if necessary
+RED='\033[0;31m'
+NC='\033[0m' # No Color
+
 cd infrastructure
 docker-compose down
+echo -e "${RED}Matchmaking API stopped${NC}"
