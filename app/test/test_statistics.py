@@ -3,6 +3,10 @@ from service.match_service import MatchService, WIN, LOSS, DRAW
 from model.team import Team
 from model.player import Player
 
+# Unit tests are primarily focused on the statistics calculation functions
+# because these functions contain the core logic that can be tested in isolation.
+# Other functions are simple CRUD operations that interact with external systems (e.g., Redis, Postman)
+# and are better suited for integration tests to ensure end-to-end functionality.
 class TestStatistics(unittest.TestCase):
     def setUp(self):
         self.match_service = MatchService()
