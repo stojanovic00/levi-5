@@ -8,6 +8,8 @@ from repository.team_repository import TeamRepository
 from .player_service import PlayerService, Player
 from .errors import Error, ErrorType
 
+TEAM_SIZE = 5
+
 class TeamService:
     def __init__(self):
         self.player_service = PlayerService()
@@ -15,8 +17,8 @@ class TeamService:
 
     def create_team(self, teamName, player_ids) -> Team:
         # Validations
-        if len(player_ids) != 5:
-            raise Error(ErrorType.INVALID_PLAYER_COUNT, "team must have 5 players")
+        if len(player_ids) != TEAM_SIZE:
+            raise Error(ErrorType.INVALID_PLAYER_COUNT, f"team must have {TEAM_SIZE} players")
 
         for team in self.get_all_teams():
             if team.teamName == teamName:

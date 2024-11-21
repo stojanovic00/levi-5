@@ -10,6 +10,11 @@ from repository.match_repository import MatchRepository
 from .errors import Error, ErrorType
 
 
+TEAM_SIZE = 5
+# Constants for match results
+WIN = 1.0
+LOSS = 0.0
+DRAW = 0.5
 
 class MatchService:
     def __init__(self):
@@ -69,12 +74,12 @@ class MatchService:
             # Wins, Losses, ELO, Rating Adjustment
             if winningTeamId == team1Id:
                 player.wins += 1
-                player.elo = self.get_new_elo(player.elo, estimated_elo, player.ratingAdjustment, 1)
+                player.elo = self.get_new_elo(player.elo, estimated_elo, player.ratingAdjustment, WIN)
             elif winningTeamId != None:
                 player.losses += 1
-                player.elo = self.get_new_elo(player.elo, estimated_elo, player.ratingAdjustment, 0)
+                player.elo = self.get_new_elo(player.elo, estimated_elo, player.ratingAdjustment, LOSS)
             else:
-                player.elo = self.get_new_elo(player.elo, estimated_elo, player.ratingAdjustment, 0.5)
+                player.elo = self.get_new_elo(player.elo, estimated_elo, player.ratingAdjustment, DRAW)
 
             # Rating Adjustment recaluclation after added hours
             player.ratingAdjustment = self.calculate_rating_adjustment(player.hoursPlayed)
@@ -90,12 +95,12 @@ class MatchService:
             # Wins, Losses, ELO, Rating Adjustment
             if winningTeamId == team2Id:
                 player.wins += 1
-                player.elo = self.get_new_elo(player.elo, estimated_elo, player.ratingAdjustment, 1)
+                player.elo = self.get_new_elo(player.elo, estimated_elo, player.ratingAdjustment, WIN)
             elif winningTeamId != None:
                 player.losses += 1
-                player.elo = self.get_new_elo(player.elo, estimated_elo, player.ratingAdjustment, 0)
+                player.elo = self.get_new_elo(player.elo, estimated_elo, player.ratingAdjustment, LOSS)
             else:
-                player.elo = self.get_new_elo(player.elo, estimated_elo, player.ratingAdjustment, 0.5)
+                player.elo = self.get_new_elo(player.elo, estimated_elo, player.ratingAdjustment, DRAW)
 
             # Rating Adjustment recaluclation after added hours
             player.ratingAdjustment = self.calculate_rating_adjustment(player.hoursPlayed)
