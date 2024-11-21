@@ -1,7 +1,7 @@
 import unittest
-from app.service.match_service import MatchService, WIN, LOSS, DRAW
-from app.model.team import Team
-from app.model.player import Player
+from service.match_service import MatchService, WIN, LOSS, DRAW
+from model.team import Team
+from model.player import Player
 
 class TestStatistics(unittest.TestCase):
     def setUp(self):

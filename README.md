@@ -12,21 +12,24 @@ To build and run this application, you need the following dependencies:
   - [Install Docker](https://docs.docker.com/get-docker/)
 - **Docker Compose**: Docker Compose is required to manage multi-container Docker applications.
   - [Install Docker Compose](https://docs.docker.com/compose/install/)
-- **Python**: required to run the tests
-  - Some of the dependencies inside `app/requirements.txt` may be required
-    - Install them by running `pip install -r app/requirements.txt`
 
-## Build and run
+## Build, test and run
 
-- Building and running application is done by running `./start.sh`
+- Building, running tests and running application is done by running `./start.sh`
 - Stopping the application is done by running `./stop.sh`
+- By default tests are run inside the docker container and must all pass before the application starts
+
+  - Otherwise containers will not start
 
 - These scripts suppose you have the right permissions to run them, if not you can run `chmod +x start.sh stop.sh` to give them the right permissions
 - If you are using `docker compose` instead of `docker-compose` you can change the `docker-compose` command in the `start.sh` and `stop.sh` scripts to `docker compose`
 
-## Running tests
+## Running tests locally
 
-- Running tests is done by running `./test.sh`
+- **Python**: required to run the tests locally
+  - Some of the dependencies inside `app/requirements.txt` may be required
+    - Install them by running `pip install -r app/requirements.txt`
+- Running tests locally is done by running `./test.sh`
   - Make sure `test.sh` has the right permissions to run by running `chmod +x test.sh`
 
 ## Technologies Used
