@@ -62,12 +62,11 @@ class MatchService:
         for player in team1.players:
             # ELO
             estimated_elo = self.get_estimated_elo(player.elo, team2_mean_elo)
-            player.ratingAdjustment = self.calculate_rating_adjustment(player.hoursPlayed)
 
             # Hours
             player.hoursPlayed += duration
 
-            # Wins, Losses, ELO
+            # Wins, Losses, ELO, Rating Adjustment
             if winningTeamId == team1Id:
                 player.wins += 1
                 player.elo = self.get_new_elo(player.elo, estimated_elo, player.ratingAdjustment, 1)
@@ -77,17 +76,18 @@ class MatchService:
             else:
                 player.elo = self.get_new_elo(player.elo, estimated_elo, player.ratingAdjustment, 0.5)
 
+            # Rating Adjustment recaluclation after added hours
+            player.ratingAdjustment = self.calculate_rating_adjustment(player.hoursPlayed)
             self.player_service.update_player(player)
 
         for player in team2.players:
             # ELO
             estimated_elo = self.get_estimated_elo(player.elo, team1_mean_elo)
-            player.ratingAdjustment = self.calculate_rating_adjustment(player.hoursPlayed)
 
             # Hours
             player.hoursPlayed += duration
 
-            # Wins, Losses, ELO
+            # Wins, Losses, ELO, Rating Adjustment
             if winningTeamId == team2Id:
                 player.wins += 1
                 player.elo = self.get_new_elo(player.elo, estimated_elo, player.ratingAdjustment, 1)
@@ -97,6 +97,8 @@ class MatchService:
             else:
                 player.elo = self.get_new_elo(player.elo, estimated_elo, player.ratingAdjustment, 0.5)
 
+            # Rating Adjustment recaluclation after added hours
+            player.ratingAdjustment = self.calculate_rating_adjustment(player.hoursPlayed)
             self.player_service.update_player(player)
         
 

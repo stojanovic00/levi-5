@@ -28,7 +28,7 @@ class PlayerService:
             elo=0,
             hoursPlayed=0,
             teamId=None,
-            ratingAdjustment=None,
+            ratingAdjustment=50,
         )
 
         self.player_repository.save_player(new_player)

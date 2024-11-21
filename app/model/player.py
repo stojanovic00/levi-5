@@ -1,5 +1,5 @@
 class Player:
-    def __init__(self, id, nickname, wins=0, losses=0, elo=0, hoursPlayed=0, teamId=None, ratingAdjustment=None):
+    def __init__(self, id, nickname, wins=0, losses=0, elo=0, hoursPlayed=0, teamId=None, ratingAdjustment=50):
         self.id: str = id
         self.nickname: str = nickname
         self.wins: int = wins
@@ -7,7 +7,7 @@ class Player:
         self.elo = elo
         self.hoursPlayed:int = hoursPlayed
         self.teamId: str = teamId
-        self.ratingAdjustment = ratingAdjustment
+        self.ratingAdjustment: int = ratingAdjustment
 
     @classmethod
     def from_dict(cls, data):
