@@ -3,3 +3,4 @@
 app/model/__pycache__/*
 app/service/__pycache__/*
 app/repository/__pycache__/*
+app/test/__pycache__/*
