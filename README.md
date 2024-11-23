@@ -1,42 +1,28 @@
-# Matchmaking API
+terraform apply
+terraform output -raw private_key_pem > id_rsa
+# SSH INTO EC2
+ssh -i id_rsa ubuntu@3.120.173.191
 
-## Overview
 
-This is a Matchmaking API built with Flask and Redis. The application allows you to manage players, teams, and matches.
+## Connect to DocDB:
 
-## Dependencies
 
-To build and run this application, you need the following dependencies:
+mongo --ssl --host docdb-cluster.cluster-c12o0ge4cwh8.eu-central-1.docdb.amazonaws.com:27017 \
+  --sslCAFile rds-combined-ca-bundle.pem \
+  --username docdb_user \
+  --password 'YourSecurePassword123!'
 
-- **Docker**: Docker is required to build and run the Docker containers.
-  - [Install Docker](https://docs.docker.com/get-docker/)
-- **Docker Compose**: Docker Compose is required to manage multi-container Docker applications.
-  - [Install Docker Compose](https://docs.docker.com/compose/install/)
 
-## Build, test and run
 
-- Building, running tests and running application is done by running `./start.sh`
-- Stopping the application is done by running `./stop.sh`
-- By default tests are run inside the docker container and must all pass before the application starts
+mongosh --ssl --host docdb-instance.c12o0ge4cwh8.eu-central-1.docdb.amazonaws.com:27017 --sslCAFile rds-combined-ca-bundle.pem --username docdb_user --password 'YourSecurePassword123!' 
 
-  - Otherwise containers will not start
 
-- These scripts suppose you have the right permissions to run them, if not you can run `chmod +x start.sh stop.sh` to give them the right permissions
-- If you are using `docker compose` instead of `docker-compose` you can change the `docker-compose` command in the `start.sh` and `stop.sh` scripts to `docker compose`
 
-## Running tests locally
+api_endpoint = "https://alnrssw7e3.execute-api.eu-central-1.amazonaws.com/prod/path"
+docdb_cluster_endpoint = "docdb-cluster.cluster-c12o0ge4cwh8.eu-central-1.docdb.amazonaws.com"
+ec2_public_ip = "3.120.173.191"
+lambda_api_url = "https://ykmiu45e43.execute-api.eu-central-1.amazonaws.com/prod"
+private_key_pem = <sensitive>
 
-- **Python**: required to run the tests locally
-  - Some of the dependencies inside `app/requirements.txt` may be required
-    - Install them by running `pip install -r app/requirements.txt`
-- Running tests locally is done by running `./test.sh`
-  - Make sure `test.sh` has the right permissions to run by running `chmod +x test.sh`
 
-## Technologies Used
-
-- **Flask**: A lightweight WSGI web application framework in Python. It is designed with simplicity and flexibility in mind, making it easy to build web applications quickly.
-- **Redis**: An in-memory data structure store used as a database, cache, and message broker. It supports various data structures such as strings, hashes, lists, sets, and more. Redis is known for its high performance and scalability.
-
-- **Docker**: A platform for developing, shipping, and running applications inside containers. It allows you to package an application with all its dependencies into a standardized unit for software development. Docker ensures that your application runs consistently across different environments.
-
-- **Docker Compose**: A tool for defining and running multi-container Docker applications. It uses a YAML file to configure the application's services, networks, and volumes. Docker Compose makes it easy to manage and orchestrate multiple containers as a single service.
+scp -i id_rsa -r codebase ubuntu@3.120.173.191:/home/ubuntu/flask_app
