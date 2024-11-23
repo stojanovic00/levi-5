@@ -4,7 +4,7 @@ class Player:
         self.nickname: str = nickname
         self.wins: int = wins
         self.losses: int = losses
-        self.elo = elo
+        self.elo: int = elo
         self.hoursPlayed:int = hoursPlayed
         self.teamId: str = teamId
         self.ratingAdjustment: int = ratingAdjustment
@@ -26,10 +26,10 @@ class Player:
         return {
             'id': self.id,
             'nickname': self.nickname,
-            'wins': self.wins,
-            'losses': self.losses,
-            'elo': self.elo,
-            'hoursPlayed': self.hoursPlayed,
+            'wins': int(self.wins),
+            'losses': int(self.losses),
+            'elo': int(self.elo),
+            'hoursPlayed': int(self.hoursPlayed),
             'teamId': self.teamId,
-            'ratingAdjustment': self.ratingAdjustment
+            'ratingAdjustment': int(self.ratingAdjustment) if self.ratingAdjustment is not None else None
         }

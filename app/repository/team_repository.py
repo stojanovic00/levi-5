@@ -1,36 +1,43 @@
-import redis
+import boto3
 import json
 import os
 from typing import List, Optional
 from dotenv import load_dotenv
 from model.team import Team
-from model.player import Player
 
 # Load environment variables from .env file
 load_dotenv()
 
 class TeamRepository:
     def __init__(self):
-        redis_host = os.getenv('REDIS_HOST', 'localhost')
-        redis_port = int(os.getenv('REDIS_PORT', 6379))
-        self.redis_client = redis.Redis(host=redis_host, port=redis_port)
-        self.teams_set = "teams"
+        # self.dynamodb = boto3.resource('dynamodb')
+        self.dynamodb = boto3.resource(
+            'dynamodb',
+            endpoint_url='http://localhost:8000',  # Local DynamoDB endpoint
+            region_name='eu-central-1',  # Specify your region
+            aws_access_key_id='local',  # Dummy credentials for local DynamoDB
+            aws_secret_access_key='local'
+        )
+        
+        self.table_name =  'Teams'
+        self.table = self.dynamodb.Table(self.table_name)
 
     def save_team(self, team: Team):
-        self.redis_client.set(team.id, json.dumps(team.to_dict()))
-        self.redis_client.sadd(self.teams_set, team.id)
+        self.table.put_item(Item=team.to_dict())
 
     def get_team(self, team_id: str) -> Optional[Team]:
-        team_data = self.redis_client.get(team_id)
-        if team_data:
-            team_dict = json.loads(team_data)
-            return Team.from_dict(team_dict)
+        response = self.table.get_item(Key={'id': team_id})
+        if 'Item' in response:
+            return Team.from_dict(response['Item'])
         return None
 
     def get_all_teams(self) -> List[Team]:
-        teams = []
-        for key in self.redis_client.smembers(self.teams_set):
-            team = self.get_team(key)
-            if team:
-                teams.append(team)
+        response = self.table.scan()
+        teams = [Team.from_dict(item) for item in response.get('Items', [])]
         return teams
+
+    def delete_all(self):
+        response = self.table.scan()
+        with self.table.batch_writer() as batch:
+            for item in response.get('Items', []):
+                batch.delete_item(Key={'id': item['id']})

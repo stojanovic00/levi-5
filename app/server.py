@@ -12,8 +12,7 @@ match_service = MatchService()
 
 @app.route('/players/create', methods=['POST'])
 def create_player():
-    request_data = request.get_json()
-
+    request_data = request.get_json() 
     try:
         new_player = player_service.create_player(request_data['nickname'])
         return jsonify(new_player.to_dict()), 200
@@ -40,18 +39,29 @@ def get_all_players():
     players = player_service.get_all_players()
     return jsonify([player.to_dict() for player in players]), 200
 
-
+@app.route('/players', methods=['DELETE'])
+def delete_all():
+    player_service.delete_all()
+    return make_response('', 200)
 # TEAMS
 
 @app.route('/teams', methods=['POST'])
 def create_team():
     request_data = request.get_json()
 
+    if len(request_data) != 2:
+        return jsonify({'message': 'Request requires team name and players'}), 400
+
+
     try:
         new_team = team_service.create_team(request_data['teamName'], request_data['players'])
         return jsonify(new_team.to_dict()), 200
     except Error as e:
         if e.error_type == ErrorType.INVALID_PLAYER_COUNT:
+            return jsonify({'message': e.message}), 400
+        if e.error_type == ErrorType.SAME_TEAM_ID:
+            return jsonify({'message': e.message}), 400
+        if e.error_type == ErrorType.WINNER_NOT_STATED:
             return jsonify({'message': e.message}), 400
         elif e.error_type == ErrorType.PLAYER_NOT_FOUND:
             return jsonify({'message': e.message}), 404
@@ -78,12 +88,16 @@ def get_all_teams():
     teams = team_service.get_all_teams()
     return jsonify([team.to_dict() for team in teams]), 200
 
+@app.route('/players/<player_id>/leave_team', methods=['PUT'])
+def leave_team(player_id):
+    player = team_service.leave_team(player_id)
+    return jsonify([player.to_dict()]), 200
+
 # MATCHES
 
 @app.route('/matches', methods=['POST'])
 def record_match():
     request_data = request.get_json()
-
     try:
         match_service.record_match(request_data['team1Id'], request_data['team2Id'], request_data['winningTeamId'], request_data['duration'])
         return make_response('', 200)
@@ -112,5 +126,30 @@ def get_all_matches():
     matches = match_service.get_all_matches()
     return jsonify([match.to_dict() for match in matches]), 200
 
+@app.route('/teams/generate_teams', methods=['POST'])
+def generate_teams():
+    try:
+        # Extract `teamSize` from query parameters
+        team_size = int(request.args.get('teamSize', 0))
+        
+        # Validate that `teamSize` is greater than 0
+        if team_size <= 0:
+            return jsonify({'message': 'teamSize must be greater than 0'}), 400
+
+        # Use the TeamService to generate teams
+        teams = team_service.generate_teams(team_size)
+
+        # Return the generated teams as the response
+        return jsonify([team.to_dict() for team in teams]), 200
+    except Error as e:
+        if e.error_type == ErrorType.NOT_ENOUGH_PLAYERS:
+            return jsonify({'message': e.message}), 400
+        elif e.error_type == ErrorType.INVALID_TEAM_SIZE:
+            return jsonify({'message': e.message}), 400
+        else:
+            return jsonify({'message': "Unknown error"}), 520
+    except ValueError:
+        return jsonify({'message': 'Invalid teamSize value'}), 400
+
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=8080, debug=False)
+    app.run(host='0.0.0.0', port=8080, debug=True)

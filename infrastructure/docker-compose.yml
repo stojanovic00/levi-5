@@ -1,20 +1,18 @@
 version: '3.8'
 
 services:
-  redis:
-    image: redis:latest
-    container_name: redis-db
+  dynamodb:
+    image: amazon/dynamodb-local
+    container_name: dynamodb-local
     ports:
-      - "6379:6379"
+      - "8000:8000" # Expose the DynamoDB Local UI and API on port 8000
+    volumes:
+      - dynamodb_data:/home/dynamodblocal/data # Persistent local data
+    command: "-jar DynamoDBLocal.jar -sharedDb" # Shared DB across multiple clients
+    environment:
+      - AWS_ACCESS_KEY_ID=local
+      - AWS_SECRET_ACCESS_KEY=local
+      - AWS_REGION=eu-central-1
 
-  app:
-    build:
-      context: ../app
-      dockerfile: Dockerfile
-    container_name: python-app
-    ports:
-      - "8080:8080"
-    depends_on:
-      - redis
-    env_file:
-      - ../app/.env
+volumes:
+  dynamodb_data:

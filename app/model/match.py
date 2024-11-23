@@ -1,7 +1,7 @@
 from typing import Optional
 
 class Match:
-    def __init__(self, id: str, team1Id: str, team2Id: str, winningTeamId: Optional[str], duration: int):
+    def __init__(self, id: str, team1Id: str, team2Id: str, winningTeamId: Optional[str], duration):
         self.id = id
         self.team1Id = team1Id
         self.team2Id = team2Id

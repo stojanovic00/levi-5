@@ -6,6 +6,8 @@ from dotenv import load_dotenv
 
 from model.player import Player
 from repository.player_repository import PlayerRepository
+from repository.team_repository import TeamRepository
+from repository.match_repository import MatchRepository
 from .errors import Error, ErrorType
 
 
@@ -13,6 +15,8 @@ from .errors import Error, ErrorType
 class PlayerService:
     def __init__(self):
         self.player_repository = PlayerRepository()
+        self.team_repository = TeamRepository()
+        self.match_repository = MatchRepository()
 
     def create_player(self, nickname) -> Player:
         # Check if the nickname is unique
@@ -28,7 +32,7 @@ class PlayerService:
             elo=0,
             hoursPlayed=0,
             teamId=None,
-            ratingAdjustment=50,
+            ratingAdjustment=None,
         )
 
         self.player_repository.save_player(new_player)
@@ -50,5 +54,11 @@ class PlayerService:
 
         self.player_repository.save_player(updated_player)
         return 
+
+    def delete_all(self):
+        self.match_repository.delete_all()
+        self.team_repository.delete_all()
+        self.player_repository.delete_all()
+        return
 
     

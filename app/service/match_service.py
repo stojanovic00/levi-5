@@ -29,11 +29,16 @@ class MatchService:
         return total_elo / 5
 
     def get_estimated_elo(self, current_elo: float, opponent_team_mean_elo: float) -> float:
-           return 1 / (1 + 10 ** ((opponent_team_mean_elo - current_elo) / 400)) 
+           return float(1 / (1 + 10 ** ((opponent_team_mean_elo - current_elo) / 400)))
 
     def get_new_elo(self, current_elo: float, estimated_elo: float, ratingAdjustment: int, match_result: float) -> float:
-          return current_elo + ratingAdjustment * (match_result - estimated_elo) 
-
+        if ratingAdjustment is None:
+                ratingAdjustment = 50
+        current_elo = float(current_elo)
+        estimated_elo = float(estimated_elo)
+        ratingAdjustment = float(ratingAdjustment)
+        match_result = float(match_result)
+        return current_elo + (ratingAdjustment * (match_result - estimated_elo))
     def calculate_rating_adjustment(self, hours: int) -> int:
         if hours < 500:
             return 50
@@ -51,7 +56,12 @@ class MatchService:
         if duration < 1:
             raise Error(ErrorType.MATCH_DURATION_LESS_THAN_ONE, "Duration can't be less than 1 hour")
 
-
+        if team1Id == team2Id:
+            raise Error(ErrorType.SAME_TEAM_ID, "Teams must be different")
+        
+        if winningTeamId != None and winningTeamId != team1Id and winningTeamId != team2Id:
+            raise Error(ErrorType.WINNER_NOT_STATED, "Winning team must be one of the teams playing")
+        
         team1 = self.team_service.get_team(team1Id)
         team2 = self.team_service.get_team(team2Id)
 
@@ -60,14 +70,18 @@ class MatchService:
         if team2 is None:
             raise Error(ErrorType.TEAM_NOT_FOUND, "Team 2 not found")
 
+        if len(team1.players) != len(team2.players) or len(team1.players) == 0:
+            raise Error(
+            ErrorType.INVALID_TEAM_SIZE,
+            "Both teams must have the same number of players, and the number must be greater than 0"
+        )
         team1_mean_elo = self.calculate_mean_team_elo(team1)
         team2_mean_elo = self.calculate_mean_team_elo(team2)
 
-            
+   
         for player in team1.players:
             # ELO
             estimated_elo = self.get_estimated_elo(player.elo, team2_mean_elo)
-
             # Hours
             player.hoursPlayed += duration
 
