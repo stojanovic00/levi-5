@@ -26,7 +26,7 @@ class MatchService:
         total_elo = 0
         for player in team.players:
             total_elo += player.elo
-        return total_elo / 5
+        return total_elo / len(team.players)
 
     def get_estimated_elo(self, current_elo: float, opponent_team_mean_elo: float) -> float:
            return float(1 / (1 + 10 ** ((opponent_team_mean_elo - current_elo) / 400)))
@@ -84,7 +84,8 @@ class MatchService:
             estimated_elo = self.get_estimated_elo(player.elo, team2_mean_elo)
             # Hours
             player.hoursPlayed += duration
-
+                        # Rating Adjustment recaluclation after added hours
+            player.ratingAdjustment = self.calculate_rating_adjustment(player.hoursPlayed)
             # Wins, Losses, ELO, Rating Adjustment
             if winningTeamId == team1Id:
                 player.wins += 1
@@ -95,8 +96,7 @@ class MatchService:
             else:
                 player.elo = self.get_new_elo(player.elo, estimated_elo, player.ratingAdjustment, DRAW)
 
-            # Rating Adjustment recaluclation after added hours
-            player.ratingAdjustment = self.calculate_rating_adjustment(player.hoursPlayed)
+
             self.player_service.update_player(player)
 
         for player in team2.players:
@@ -105,7 +105,8 @@ class MatchService:
 
             # Hours
             player.hoursPlayed += duration
-
+                        # Rating Adjustment recaluclation after added hours
+            player.ratingAdjustment = self.calculate_rating_adjustment(player.hoursPlayed)
             # Wins, Losses, ELO, Rating Adjustment
             if winningTeamId == team2Id:
                 player.wins += 1
@@ -116,8 +117,6 @@ class MatchService:
             else:
                 player.elo = self.get_new_elo(player.elo, estimated_elo, player.ratingAdjustment, DRAW)
 
-            # Rating Adjustment recaluclation after added hours
-            player.ratingAdjustment = self.calculate_rating_adjustment(player.hoursPlayed)
             self.player_service.update_player(player)
         
 

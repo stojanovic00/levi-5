@@ -55,16 +55,18 @@ class TeamService:
 
     def leave_team(self, player_id) -> Optional[Player]:
         player = self.player_service.get_player(player_id)
-        if not player: 
-            raise Error(ErrorType.PLAYER_NOT_FOUND, f"player with ID '{player_id}' not found")
-        team = self.team_repository.get_team(player.teamId)
-        if team is None: 
+
+        if player.teamId == None:
             return player
+
+        team = self.team_repository.get_team(player.teamId)
+
         team.players = [p for p in team.players if p.id != player_id]
         player.teamId = None
         self.team_repository.save_team(team)
         self.player_repoistory.save_player(player)
         return player
+
 
     def get_team(self, team_id) -> Optional[Team]:
         team = self.team_repository.get_team(team_id)
